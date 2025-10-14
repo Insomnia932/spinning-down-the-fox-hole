@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spinning Down the Fox Hole — Limited Edition</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Qwigley&family=Allura&family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap');
 
   body {
     margin: 0;
@@ -22,6 +22,91 @@
     scroll-behavior: smooth;
   }
 
+  /* ================== ENTRY OVERLAY ================== */
+  #entry-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3rem 2rem;
+    min-height: 100vh;
+    overflow-y: auto;
+    z-index: 9999;
+    animation: fadeOutOverlay 1s ease-in-out forwards;
+    animation-delay: 8s; /* overlay fades out after 8s */
+  }
+
+  @keyframes fadeOutOverlay {
+    0% { opacity: 1; visibility: visible; z-index: 9999; }
+    100% { opacity: 0; visibility: hidden; z-index: 0; }
+  }
+
+  /* WELCOME heading */
+  .overlay-heading {
+    font-family: 'Qwigley', cursive;
+    font-weight: 400;
+    font-size: 3.2rem;
+    letter-spacing: 2px;
+    color: #f9d16f;
+    text-shadow: 0 0 5px #f9d16f, 0 0 15px #f9d16f, 0 0 25px #d6b890;
+    margin-top: 1rem;
+    opacity: 1;
+    animation: fadeInHeading 1.5s ease-out forwards, pulseGlow 2.5s ease-in-out infinite alternate;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fadeInHeading { 0% { transform: translateY(-20px); } 100% { transform: translateY(0); } }
+
+  /* Fox */
+  .overlay-fox {
+    width: 300px;
+    opacity: 1;
+    transform: translateY(-300px);
+    filter: drop-shadow(0 0 12px #d6b890);
+    margin: 2rem 0;
+    animation: glideDown 4s cubic-bezier(0.25,0.1,0.25,1) forwards 0.8s, pulseFox 2.5s ease-in-out infinite alternate;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes glideDown {
+    0% { transform: translateY(-300px) scale(0.85); filter: drop-shadow(0 0 0 #d6b890); }
+    50% { transform: translateY(-40px) scale(0.95); filter: drop-shadow(0 0 20px #f9e8b3); }
+    100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 12px #d6b890); }
+  }
+
+  /* Subtext */
+  .overlay-subtext {
+    text-align: center;
+    font-family: 'Allura', cursive;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    font-style: normal;
+    color: #f9d16f;
+    text-shadow: 0 0 4px #f9d16f,0 0 10px #f9d16f,0 0 20px #d6b890;
+    opacity: 1;
+    animation: fadeInSubtext 1.5s ease-out forwards 1.8s, pulseGlow 2.5s ease-in-out infinite alternate;
+    animation-fill-mode: forwards;
+    margin-bottom: 3rem;
+  }
+
+  @keyframes fadeInSubtext { 0% { transform: translateY(30px); } 100% { transform: translateY(0); } }
+  @keyframes pulseGlow { 0% { text-shadow:0 0 5px #f9d16f,0 0 15px #f9d16f,0 0 25px #d6b890; } 50% { text-shadow:0 0 8px #f9d16f,0 0 20px #f9d16f,0 0 30px #d6b890; } 100% { text-shadow:0 0 5px #f9d16f,0 0 15px #f9d16f,0 0 25px #d6b890; } }
+  @keyframes pulseFox { 0% { filter:drop-shadow(0 0 12px #d6b890); } 50% { filter:drop-shadow(0 0 20px #f9e8b3); } 100% { filter:drop-shadow(0 0 12px #d6b890); } }
+
+  /* ================== LANDING PAGE ================== */
+  .left-page, .right-page {
+    opacity: 0;
+    z-index: 1; /* below overlay */
+    animation: fadeInContent 1s ease-in forwards;
+    animation-delay: 9s;
+  }
+
+  @keyframes fadeInContent { from {opacity:0;} to {opacity:1;} }
+
   /* LEFT PAGE */
   .left-page {
     flex: 1;
@@ -33,75 +118,19 @@
     align-items: center;
     color: #f5e6cc;
     overflow-y: auto;
-    z-index: 2;
+    max-width: 100%;
+    height: auto;
   }
 
-  .left-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 0;
-  }
-
-  .left-fox-large {
-    width: 250px;
-    z-index: 1;
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeFox 3s ease-out forwards;
-  }
-
-  @keyframes fadeFox {
-    0% { transform: translateY(-60px); opacity: 0; filter: blur(10px); }
-    100% { transform: translateY(0); opacity: 0.8; filter: blur(0); }
-  }
-
-  /* LEFT PAGE PORTRAIT — bigger */
-  .small-portrait {
-    width: auto;
-    height: 280px;
-    border-radius: 12px;
-    margin: 1.5rem 0;
-    border: 2px solid #d6b89066;
-    object-fit: cover;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    z-index: 1;
-    position: relative;
-  }
-
-  .left-content {
-    position: relative;
-    z-index: 3;
-    max-width: 400px;
-    text-align: center;
-  }
-
-  .left-content h2 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: #d6b890;
-  }
-
-  .left-content h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #f5e6cc;
-  }
-
-  .left-content ul {
-    list-style: none;
-    padding: 0;
-    line-height: 1.6;
-  }
-
-  .left-content li::before {
-    content: "✦ ";
-    color: #d6b890;
-  }
+  .left-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); z-index: 0; }
+  .left-fox-large { width: 250px; margin-bottom: 1rem; opacity: 0; animation: fadeFox 3s ease-out forwards; animation-delay: 9.5s; }
+  @keyframes fadeFox { 0% { transform:translateY(-60px); opacity:0; filter:blur(10px); } 100% { transform:translateY(0); opacity:0.8; filter:blur(0); } }
+  .small-portrait { width:auto; height:280px; border-radius:12px; margin:1.5rem 0; border:2px solid #d6b89066; object-fit:cover; display:block; margin-left:auto;margin-right:auto; opacity:0; animation: fadeInContent 1s ease-in forwards; animation-delay:10s; }
+  .left-content { position:relative; z-index:3; max-width:400px; text-align:center; opacity:0; animation: fadeInContent 1s ease-in forwards; animation-delay:10s; }
+  .left-content h2 { font-family:'Great Vibes', cursive; font-size:2rem; margin-bottom:0.5rem; color:#d6b890; }
+  .left-content h3 { font-family:'Playfair Display', serif; font-size:1.5rem; margin-bottom:1rem; color:#f5e6cc; }
+  .left-content ul { list-style:none; padding:0; line-height:1.6; }
+  .left-content li::before { content:"✦ "; color:#d6b890; }
 
   /* RIGHT PAGE */
   .right-page {
@@ -115,112 +144,46 @@
     background-color: #111;
     color: #f5e6cc;
     overflow-y: auto;
-    z-index: 2;
+    max-width: 100%;
+    height: auto;
+  }
+  .right-content { position:relative; z-index:3; margin-top:2rem; }
+  .title { font-family:'Great Vibes', cursive; font-size:3rem; color:#f9e8b3; }
+  .subtitle { font-size:1rem; color:#e7c78a; margin-bottom:1rem; }
+  .rare, .copy-number, .story { margin:0.3rem auto; max-width:500px; }
+  .rare { font-weight:bold; color:#fff3d9; }
+  .copy-number { font-style:italic; color:#d6b890; }
+  .story { line-height:1.7; }
+  .portraits { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; justify-items:center; margin-top:2rem; max-width:400px; margin-left:auto; margin-right:auto; }
+  .portraits img { width:80%; aspect-ratio:1/1; border-radius:12px; object-fit:cover; border:2px solid #d6b89066; transition: transform 0.3s; z-index:1; position:relative; }
+  .portraits img:hover { transform: scale(1.05); }
+
+  /* Middle fox and footer */
+  .middle-fox { position:absolute; bottom:2rem; left:47%; transform:translateX(-50%); width:150px; z-index:2; opacity:0.8; filter:brightness(1.1) drop-shadow(0 0 8px rgba(0,0,0,0.5)); pointer-events:none; }
+  .fade-in-footer { position:absolute; bottom:0.5rem; left:50%; transform:translateX(-50%); text-align:center; font-size:0.85rem; color:rgba(255,255,255,0.6); letter-spacing:0.5px; opacity:0; animation: fadeIn 2.5s ease-in forwards; animation-delay:11s; font-family:'Georgia', serif; z-index:5; }
+  @keyframes fadeIn { from {opacity:0; transform:translate(-50%,10px);} to {opacity:1; transform:translate(-50%,0);} }
+
+  @media (max-width:900px) {
+    body { flex-direction:column; height:auto; }
+    .left-page,.right-page { height:auto; padding:2rem; }
+    .title { font-size:2.2rem; }
+    .middle-fox { display:none; }
+    .fade-in-footer { position:static; margin-top:1rem; transform:none; animation-delay:0.5s; }
   }
 
-  .right-content {
-    position: relative;
-    z-index: 3;
-    margin-top: 2rem;
-  }
-
-  .title {
-    font-family: 'Great Vibes', cursive;
-    font-size: 3rem;
-    color: #f9e8b3;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-    color: #e7c78a;
-    margin-bottom: 1rem;
-  }
-
-  .rare, .copy-number, .story {
-    margin: 0.3rem auto;
-    max-width: 500px;
-  }
-
-  .rare { font-weight: bold; color: #fff3d9; }
-  .copy-number { font-style: italic; color: #d6b890; }
-  .story { line-height: 1.7; }
-
-  /* Portrait Grid — smaller */
-  .portraits {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    justify-items: center;
-    margin-top: 2rem;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .portraits img {
-    width: 80%;
-    aspect-ratio: 1/1;
-    border-radius: 12px;
-    object-fit: cover;
-    border: 2px solid #d6b89066;
-    transition: transform 0.3s;
-    z-index: 1;
-    position: relative;
-  }
-
-  .portraits img:hover {
-    transform: scale(1.05);
-  }
-
-  /* MIDDLE FOX EMBLEM */
-  .middle-fox {
-    position: absolute;
-    bottom: 2rem;
-    left: 47%;
-    transform: translateX(-50%);
-    width: 150px;
-    z-index: 2;
-    opacity: 0.8;
-    filter: brightness(1.1) drop-shadow(0 0 8px rgba(0,0,0,0.5));
-    pointer-events: none;
-  }
-
-  /* COPYRIGHT FADE-IN */
-  .fade-in-footer {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 0.5px;
-    opacity: 0;
-    animation: fadeIn 2.5s ease-in forwards;
-    animation-delay: 1.5s; /* delayed for cinematic reveal */
-    font-family: 'Georgia', serif;
-    z-index: 5;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translate(-50%, 10px); }
-    to { opacity: 1; transform: translate(-50%, 0); }
-  }
-
-  @media (max-width: 900px) {
-    body { flex-direction: column; height: auto; }
-    .left-page, .right-page { height: auto; padding: 2rem; }
-    .title { font-size: 2.2rem; }
-    .middle-fox { display: none; }
-    .fade-in-footer { position: static; margin-top: 1rem; transform: none; animation-delay: 0.5s; }
-  }
-
-  @supports (-webkit-touch-callout: none) {
-    body { min-height: -webkit-fill-available; }
-  }
 </style>
 </head>
 <body>
+
+<!-- ================== ENTRY OVERLAY ================== -->
+<div id="entry-overlay">
+  <h1 class="overlay-heading">WELCOME</h1>
+  <img class="overlay-fox" src="https://i.ibb.co/p6Lt7nNd/e2eb6366-b194-476b-a714-99a2449d34ba.png" alt="Fox Emblem">
+  <div class="overlay-subtext">
+    <p>“You have unlocked the Foxhole…”</p>
+    <p>Come see what secrets await</p>
+  </div>
+</div>
 
 <!-- LEFT PAGE -->
 <div class="left-page">
@@ -261,13 +224,13 @@
   </div>
 </div>
 
-<!-- FOX EMBLEM BETWEEN PAGES -->
+<!-- MIDDLE FOX -->
 <img class="middle-fox" src="https://i.ibb.co/qFyX9xJD/file-00000000e8a06243919a9fa0251ee231.png" alt="Middle Fox Emblem">
 
-<!-- COPYRIGHT BELOW FOX IMAGE -->
+<!-- FOOTER -->
 <div class="fade-in-footer">
   © 2025 Jamie L. Mathieson — All Rights Reserved.
 </div>
 
 </body>
-        </html>
+                                                         </html>
