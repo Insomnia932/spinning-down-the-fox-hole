@@ -19,8 +19,6 @@
     overflow-y: auto;
     background-color: #000;
     position: relative;
-
-    /* Smooth scrolling for flicks and anchor jumps */
     scroll-behavior: smooth;
   }
 
@@ -174,10 +172,10 @@
     transform: scale(1.05);
   }
 
-  /* MIDDLE FOX EMBLEM — visible behind text, above images */
+  /* MIDDLE FOX EMBLEM */
   .middle-fox {
     position: absolute;
-    bottom: 1.5rem;
+    bottom: 2rem;
     left: 47%;
     transform: translateX(-50%);
     width: 150px;
@@ -187,14 +185,36 @@
     pointer-events: none;
   }
 
+  /* COPYRIGHT FADE-IN */
+  .fade-in-footer {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.5px;
+    opacity: 0;
+    animation: fadeIn 2.5s ease-in forwards;
+    animation-delay: 1.5s; /* delayed for cinematic reveal */
+    font-family: 'Georgia', serif;
+    z-index: 5;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, 10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+
   @media (max-width: 900px) {
     body { flex-direction: column; height: auto; }
     .left-page, .right-page { height: auto; padding: 2rem; }
     .title { font-size: 2.2rem; }
     .middle-fox { display: none; }
+    .fade-in-footer { position: static; margin-top: 1rem; transform: none; animation-delay: 0.5s; }
   }
 
-  /* iOS Safari fix */
   @supports (-webkit-touch-callout: none) {
     body { min-height: -webkit-fill-available; }
   }
@@ -205,11 +225,8 @@
 <!-- LEFT PAGE -->
 <div class="left-page">
   <div class="left-overlay"></div>
-
   <img class="left-fox-large" src="https://i.ibb.co/p6Lt7nNd/e2eb6366-b194-476b-a714-99a2449d34ba.png" alt="Large Fox Emblem">
-
   <img class="small-portrait" src="https://i.ibb.co/FbYhc8mb/file-00000000b58c6230b25d8049ad95a434.png" alt="Portrait">
-
   <div class="left-content">
     <h2>Rens Cabin</h2>
     <h3>Inside Your Limited Edition</h3>
@@ -229,7 +246,7 @@
     <h1 class="title">Spinning Down the Fox Hole</h1>
     <p class="subtitle">Limited 1st Edition — Signed by Author</p>
     <p class="rare">You have discovered something rare.</p>
-     <p class="copy-number">You are 1 of 20 lucky people to receive this Limited Edition.</p>
+    <p class="copy-number">You are 1 of 20 lucky people to receive this Limited Edition.</p>
     <p class="story">
       Hidden between these pages lies a story whispered through forests and waterfalls.<br>
       One of shadow, sisters, and secrets best left in the dark.
@@ -247,6 +264,10 @@
 <!-- FOX EMBLEM BETWEEN PAGES -->
 <img class="middle-fox" src="https://i.ibb.co/qFyX9xJD/file-00000000e8a06243919a9fa0251ee231.png" alt="Middle Fox Emblem">
 
-  
+<!-- COPYRIGHT BELOW FOX IMAGE -->
+<div class="fade-in-footer">
+  © 2025 Jamie L. Mathieson — All Rights Reserved.
+</div>
+
 </body>
-</html>
+        </html>
