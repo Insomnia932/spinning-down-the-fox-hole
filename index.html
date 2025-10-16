@@ -1,349 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Main Landing Page Code - Fixed Integration</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Main Landing Page</title>
 <link href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-body {
-  margin:0;
-  padding:0;
-  display:flex;
-  flex-direction:row;
-  min-height:100vh;
-  font-family:'Playfair Display', serif;
-  color:#f5e6cc;
-  background-color:#000;
-  overflow-x:hidden;
-  overflow-y:hidden; /* Prevent early scroll */
-  scroll-behavior:smooth;
-}
+/* ===== GENERAL ===== */
+body { margin:0; padding:0; display:flex; flex-direction:row; min-height:100vh; font-family:'Playfair Display', serif; color:#f5e6cc; background-color:#000; scroll-behavior:smooth; }
 
 /* ===== WELCOME OVERLAY ===== */
-#entry-overlay {
-  position:absolute;
-  inset:0;
-  background-color:#000;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  padding:3rem 2rem;
-  min-height:100vh;
-  overflow:hidden;
-  z-index:9999;
-  animation:fadeOutOverlay 1.2s ease-in-out forwards;
-  animation-delay:10s;
-}
-@keyframes fadeOutOverlay {
-  0%{opacity:1;}
-  90%{opacity:1;}
-  100%{opacity:0;visibility:hidden;}
-}
+#entry-overlay {position:absolute; inset:0; background-color:#000; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:3rem 2rem; min-height:100vh; overflow:hidden; z-index:9999; animation:fadeOutOverlay 1.2s ease-in-out forwards; animation-delay:10s;}
+@keyframes fadeOutOverlay {0%{opacity:1;} 90%{opacity:1;} 100%{opacity:0; visibility:hidden;}}
 
-/* Heading + Text */
-.overlay-heading {
-  text-align:center;
-  color:#f9d16f;
-  font-family:'Allura', cursive;
-  margin-top:1rem;
-  animation:fadeInHeading 1.5s ease-out forwards;
-}
-.overlay-heading .welcome-main {
-  font-size:3.8rem;
-  margin:0;
-  line-height:1.2;
-  text-shadow:0 0 6px #f9d16f, 0 0 15px #f9d16f, 0 0 25px #d6b890;
-  animation:pulseWelcome 2s ease-in-out 2.2s 1 forwards;
-}
-.overlay-heading .welcome-sub {
-  font-size:1.8rem;
-  margin:0.3rem 0;
-  opacity:0;
-  text-shadow:0 0 4px #f9d16f, 0 0 10px #d6b890;
-  animation:fadeInLine 1.2s ease-out forwards;
-}
-.overlay-heading .welcome-sub:nth-of-type(2) { animation-delay:1.4s; }
-.overlay-heading .welcome-sub:nth-of-type(3) { animation-delay:2.2s; }
-@keyframes fadeInHeading {0%{opacity:0; transform:translateY(-20px);}100%{opacity:1; transform:translateY(0);}}
-@keyframes fadeInLine {0%{opacity:0; transform:translateY(10px);}100%{opacity:1; transform:translateY(0);}}
-@keyframes pulseWelcome {
-  0% { text-shadow:0 0 6px #f9d16f, 0 0 15px #f9d16f, 0 0 25px #d6b890; transform:scale(1); }
-  50% { text-shadow:0 0 12px #f9d16f, 0 0 25px #f9d16f, 0 0 40px #f9d16f; transform:scale(1.05); }
-  100% { text-shadow:0 0 6px #f9d16f, 0 0 15px #f9d16f, 0 0 25px #d6b890; transform:scale(1); }
-}
+/* Overlay Heading */
+.overlay-heading { text-align:center; color:#f9d16f; font-family:'Great Vibes', cursive; margin-top:1rem;}
+.overlay-heading .welcome-main { font-size:4rem; margin:0; line-height:1.2; text-shadow:0 0 6px #f9d16f,0 0 15px #f9d16f,0 0 25px #d6b890; animation:pulseWelcome 2s ease-in-out 2.2s 1 forwards;}
+.overlay-heading .welcome-sub { font-size:1.8rem; margin:0.3rem 0; opacity:0; text-shadow:0 0 4px #f9d16f,0 0 10px #d6b890; animation:fadeInLine 1.2s ease-out forwards;}
+.overlay-heading .welcome-sub:nth-of-type(2){ animation-delay:1.4s; }
+.overlay-heading .welcome-sub:nth-of-type(3){ animation-delay:2.2s; }
+@keyframes fadeInLine{from{opacity:0; transform:translateY(10px);}to{opacity:1; transform:translateY(0);}}
+@keyframes pulseWelcome{0%{text-shadow:0 0 6px #f9d16f;}50%{text-shadow:0 0 20px #f9d16f;}100%{text-shadow:0 0 6px #f9d16f;}}
 
-/* Fox animation - overlay */
-.overlay-fox {
-  width:300px;
-  margin:2rem 0;
-  transform:translateY(-300px);
-  filter: drop-shadow(0 0 12px #d6b890);
-  animation:
-    glideDown 2s ease-out forwards 0.5s,
-    bounceLanding 1s ease-out forwards 2.5s,
-    floatStill 3s ease-in-out infinite alternate 4s,
-    pulseGlow 2.5s ease-in-out infinite alternate 4s;
-}
-@keyframes glideDown {0%{transform:translateY(-300px);}100%{transform:translateY(0);}}
-@keyframes bounceLanding {
-  0%{transform:translateY(0);}
-  20%{transform:translateY(15px);}
-  35%{transform:translateY(-5px);}
-  50%{transform:translateY(10px);}
-  65%{transform:translateY(-3px);}
-  80%{transform:translateY(7px);}
-  100%{transform:translateY(0);}
-}
-@keyframes floatStill {
-  0%{transform:translateY(0) scale(1);}
-  50%{transform:translateY(-5px) scale(1.02);}
-  100%{transform:translateY(0) scale(1);}
-}
-@keyframes pulseGlow {
-  0%{filter:drop-shadow(0 0 10px #d6b890);}
-  100%{filter:drop-shadow(0 0 25px #f9d16f);}
-}
+/* Overlay Fox */
+.overlay-fox { width:300px; margin:2rem 0; transform:translateY(-300px); filter:drop-shadow(0 0 12px #d6b890); animation:glideDown 2s ease-out forwards 0.5s, bounceLanding 1s ease-out forwards 2.5s, floatStill 3s ease-in-out infinite alternate 4s, pulseGlow 2.5s ease-in-out infinite alternate 4s;}
+@keyframes glideDown{0%{transform:translateY(-300px);}100%{transform:translateY(0);}}
+@keyframes bounceLanding{0%{transform:translateY(0);}20%{transform:translateY(15px);}35%{transform:translateY(-5px);}50%{transform:translateY(10px);}65%{transform:translateY(-3px);}80%{transform:translateY(7px);}100%{transform:translateY(0);}}
+@keyframes floatStill{0%{transform:translateY(0);}50%{transform:translateY(-5px);}100%{transform:translateY(0);}}
+@keyframes pulseGlow{0%{filter:drop-shadow(0 0 10px #d6b890);}100%{filter:drop-shadow(0 0 25px #f9d16f);}}
 
-/* Bottom Subtext */
-.overlay-subtext {
-  text-align:center;
-  font-family:'Allura', cursive;
-  font-size:1.6rem;
-  line-height:1.6;
-  color:#f9d16f;
-  text-shadow:0 0 4px #f9d16f, 0 0 10px #f9d16f, 0 0 20px #d6b890;
-  margin-bottom:3rem;
-  opacity:0;
-  animation:fadeInSubtext 1.5s ease-out forwards 4s;
-}
-@keyframes fadeInSubtext {
-  0%{opacity:0; transform:translateY(30px);}
-  100%{opacity:1; transform:translateY(0);}
-}
+/* Bottom Overlay Text */
+.overlay-subtext{ text-align:center; font-family:'Allura', cursive; font-size:1.6rem; color:#f9d16f; opacity:0; animation:fadeInSubtext 1.5s ease-out forwards 4s;}
+@keyframes fadeInSubtext{0%{opacity:0; transform:translateY(30px);}100%{opacity:1; transform:translateY(0);}}
 
 /* ===== LEFT PAGE ===== */
-.left-page {
-  flex:1;
-  position:relative;
-  padding:2rem;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  background-color:#000;
-  color:#f5e6cc;
-  overflow-y:auto;
-}
-.left-page .title,
-.left-page .branch-divider,
-.left-page .portraits,
-.left-page .portrait-text,
-.left-page .video-section {
-  opacity:0;
-  animation:fadeInLeftContent 1s ease-in forwards;
-}
-.left-page .title { animation-delay:10.5s; }
-.left-page .branch-divider:nth-of-type(1) { animation-delay:11s; }
-.left-page .portraits { animation-delay:11.5s; }
-.left-page .portrait-text { animation-delay:12s; }
-.left-page .branch-divider:nth-of-type(2) { animation-delay:12.5s; }
-.left-page .video-section { animation-delay:13s; }
-.left-page .branch-divider:nth-of-type(3) { animation-delay:13.5s; }
+.left-page{flex:1; position:relative; padding:2rem; display:flex; flex-direction:column; align-items:center; background-color:#000; color:#f5e6cc; overflow-y:auto;}
+.left-page .title{animation-delay:10.5s; font-family:'Great Vibes', cursive; font-size:3rem; color:#f9e8b3; text-align:center;}
+.left-page .branch-divider, .right-page .branch-divider{width:60px; height:auto; display:block; margin:1rem auto;}
+.left-page .portraits{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; justify-items:center; margin-top:2rem; max-width:350px; width:100%;}
+.left-page .portraits img{width:100%; border-radius:12px; object-fit:cover; border:2px solid #d6b89066;}
+.video-section video{border:2px solid #d6b890; border-radius:8px; width:100%; max-width:280px; height:auto; display:block; margin:0 auto;}
 
-@keyframes fadeInLeftContent {
-  from {opacity:0; transform:translateY(20px);}
-  to {opacity:1; transform:translateY(0);}
-}
-
-/* Left Page Details */
-.left-page .title {
-  font-family:'Great Vibes', cursive;
-  font-size:3rem;
-  color:#f9e8b3;
-  margin:0.5rem 0;
-  text-align:center;
-}
-.left-page .branch-divider {
-  width:15%; 
-  max-width:60px;
-  margin:1rem auto;
-  opacity:0.9;
-  display:block;
-  transform: rotate(-2deg);
-}
-.left-page .subtitle {
-  font-size:1rem;
-  color:#e7c78a;
-  text-align:center;
-  margin:0.5rem 0;
-}
-
-/* Portraits */
-.left-page .portraits {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:20px;
-  justify-items:center;
-  margin-top:2rem;
-  max-width:350px;
-  width:100%;
-}
-.left-page .portraits img {
-  width:100%; 
-  aspect-ratio:1/1;
-  border-radius:12px;
-  object-fit:cover;
-  border:2px solid #d6b89066;
-  transition: transform 0.3s;
-}
-.left-page .portraits img:hover {transform:scale(1.05);}
-.left-page .portrait-text {
-  font-family:'Playfair Display', serif;
-  font-size:1.2rem;
-  color:#f5e6cc;
-  text-align:center;
-  margin-top:0.5rem;
-}
-
-/* Video Section */
-.video-section {
-  margin-top:2rem;
-  text-align:center;
-}
-.video-section p {
-  margin-bottom:0.5rem;
-  font-size:1rem;
-  color:#e7c78a;
-}
-.video-section video {
-  border:2px solid #d6b890;
-  border-radius:8px;
-  width:100%;
-  max-width:280px;
-  height:auto;
-  display:block;
-  margin:0 auto;
-}
+/* ===== QUOTE CAROUSEL ===== */
+.quote-carousel{width:100%; max-width:480px; margin:20px 0 30px; padding:12px 8px; text-align:center; position:relative;}
+.quotes-container{position:relative; min-height:120px;}
+.quote{opacity:0; position:absolute; top:0; left:0; width:100%; transition:opacity 600ms ease;}
+.quote.active{opacity:1;}
+.quote-text{font-size:0.95rem; font-style:italic; color:gold; line-height:1.4; text-shadow:0 0 3px #FFD700;}
+.quote-author{margin-top:6px; font-size:0.8rem; font-weight:bold; color:gold; text-shadow:0 0 3px #FFD700;}
+.quote-carousel .prev,.quote-carousel .next{position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; color:gold; font-size:1.6rem; cursor:pointer;}
+.quote-carousel .prev{left:6px;} .quote-carousel .next{right:6px;}
 
 /* ===== RIGHT PAGE ===== */
-.right-page {
-  flex:1;
-  position:relative;
-  padding:2rem;
-  padding-top:230px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:1.5rem;
-  background-color:#111;
-  color:#f5e6cc;
-  overflow-y:auto;
-}
-.right-page .landing-fox {
-  width:250px;
-  position:absolute;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
-  opacity:0;
-  filter: drop-shadow(0 0 12px #d6b890);
-  animation:
-    fadeInFox 1s ease-in forwards 10.5s,
-    glideDownLanding 1.8s ease-out forwards 10.5s,
-    bounceLanding 1s ease-out forwards 12.3s,
-    floatShimmer 3s ease-in-out infinite alternate 13.5s,
-    pulseGlow 2.5s ease-in-out infinite alternate 13.5s;
-}
-@keyframes fadeInFox {0%{opacity:0;}100%{opacity:1;}}
-@keyframes glideDownLanding {0%{top:-120px;}100%{top:0;}}
-@keyframes bounceLanding {0%{top:0;}20%{top:15px;}35%{top:-5px;}50%{top:10px;}65%{top:-3px;}80%{top:7px;}100%{top:0;}}
+.right-page{flex:1; position:relative; padding:2rem; display:flex; flex-direction:column; align-items:center; gap:1rem; background-color:#111; color:#f5e6cc; overflow-y:auto;}
+.right-page .landing-fox{width:250px; filter:drop-shadow(0 0 12px #d6b890);}
+.right-page .small-portrait{max-width:300px; border-radius:12px; border:2px solid #d6b89066;}
+.right-page .left-content{text-align:center; max-width:400px;}
+.right-page .left-content h2{font-family:'Great Vibes',cursive; font-size:2rem; color:#d6b890;}
+.right-page .left-content h3{font-family:'Playfair Display', serif; font-size:1.5rem; color:#f5e6cc;}
+.right-page .left-content ul{list-style:none; padding:0;}
+.right-page .left-content ul li::before{content:"✦ "; color:#d6b890;}
+.right-page .signature img{max-width:220px; cursor:pointer; filter:drop-shadow(0 0 15px #f9d16f);}
 
-/* Right Page Content */
-.right-page .branch-divider,
-.right-page .small-portrait,
-.right-page .left-content,
-.right-page .signature {
-  opacity:0;
-  animation: fadeInRightContent 1s ease-in forwards;
-  animation-delay:12s;
-}
-@keyframes fadeInRightContent {from{opacity:0;} to{opacity:1;}}
-.right-page .branch-divider {width:15%; max-width:60px; height:auto; display:block; opacity:0.9; transform:rotate(-2deg);}
-.right-page .small-portrait {width:auto; height:280px; border-radius:12px; border:2px solid #d6b89066; object-fit:cover;}
-.right-page .left-content {text-align:center; max-width:400px;}
-.right-page .left-content h2 {font-family:'Great Vibes',cursive; font-size:2rem; color:#d6b890; margin-bottom:0.5rem;}
-.right-page .left-content h3 {font-family:'Playfair Display', serif; font-size:1.5rem; color:#f5e6cc; margin-bottom:1rem;}
-.right-page .left-content ul {list-style:none; padding:0; line-height:1.6;}
-.right-page .left-content li::before {content:"✦ "; color:#d6b890;}
-.signature {text-align:center; font-family:'Playfair Display', serif; color:#f9d16f;}
-.signature img {max-width:220px; height:auto; display:block; filter: drop-shadow(0 0 5px #f9d16f) drop-shadow(0 0 15px #f9d16f) drop-shadow(0 0 25px #d6b890);}
+/* ===== POPUP (smaller + fade) ===== */
+.signature-popup{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:2000; opacity:0; transition:opacity 0.35s ease;}
+.signature-popup.show{display:flex; opacity:1;}
+.signature-popup.hide{opacity:0;}
+.signature-popup-content{background:#111; color:#f5e6cc; padding:1.2rem; max-width:90%; max-height:80vh; overflow:auto; border-radius:12px; text-align:center; position:relative;}
+.signature-popup-content img{max-width:100%; max-height:70vh; border-radius:8px; display:block; margin:1rem auto;}
+.close-popup{position:absolute; top:0.5rem; right:0.5rem; font-size:1.5rem; cursor:pointer; color:#f9d16f;}
+.popup-top-text{font-family:'Great Vibes', cursive; font-size:1.4rem; color:#f9d16f;}
+.popup-bottom-text{font-size:0.9rem; color:#f9d16f;}
 
 /* ===== FOOTER ===== */
-.fade-in-footer {
-  position:fixed; 
-  bottom:0.5rem;
-  left:50%;
-  transform:translateX(-50%);
-  text-align:center;
-  font-size:0.85rem;
-  color:rgba(255,255,255,0.6);
-  letter-spacing:0.5px;
-  opacity:0;
-  animation:fadeIn 2.5s ease-in forwards;
-  animation-delay:14s;
-  font-family:'Georgia', serif;
-  z-index:5;
-}
-@keyframes fadeIn {from{opacity:0; transform:translate(-50%,10px);} to{opacity:1; transform:translate(-50%,0);} }
+.fade-in-footer{position:fixed; bottom:0.5rem; left:50%; transform:translateX(-50%); text-align:center; font-size:0.85rem; color:rgba(255,255,255,0.6); font-family:'Georgia', serif;}
+/* helper to lock scroll when popup open */
+body.lock-scroll{overflow:hidden;}
 </style>
 </head>
-
 <body>
 
-<!-- ===== WELCOME OVERLAY ===== -->
+<!-- WELCOME -->
 <div id="entry-overlay">
   <div class="overlay-heading">
-    <p class="welcome-main">WELCOME</p>
+    <p class="welcome-main">...Welcome...</p>
     <p class="welcome-sub">You are 1 of only few</p>
     <p class="welcome-sub">To have unlocked the Foxhole</p>
   </div>
-
   <img class="overlay-fox" src="https://i.ibb.co/p6Lt7nNd/e2eb6366-b194-476b-a714-99a2449d34ba.png" alt="Fox Emblem">
-
   <div class="overlay-subtext">
     <p>Don't be shy...</p>
-    <p>Come seek the secrets of the falls</p> <!-- Updated last line -->
+    <p>Come seek the secrets of the falls</p>
   </div>
 </div>
 
-<!-- ===== LEFT PAGE ===== -->
+<!-- LEFT PAGE -->
 <div class="left-page">
   <h1 class="title">Spinning Down the Fox Hole</h1>
-  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="Branch Divider">
+  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="branch">
   <p class="subtitle">Limited 1st Edition - Signed by Author</p>
+
   <div class="portraits">
-    <img src="https://i.ibb.co/TDGcLrpS/file-00000000063862438b1fee4277ac7687.png" alt="Portrait 1">
-    <img src="https://i.ibb.co/zhYHxGLv/file-00000000a5a461f9a0a3d90e8b6ce027.png" alt="Portrait 2">
-    <img src="https://i.ibb.co/rK6LTqM3/Faye.png" alt="Faye">
-    <img src="https://i.ibb.co/MytCzjdg/Aveline.png" alt="Aveline">
+    <img src="https://i.ibb.co/TDGcLrpS/file-00000000063862438b1fee4277ac7687.png" alt="">
+    <img src="https://i.ibb.co/zhYHxGLv/file-00000000a5a461f9a0a3d90e8b6ce027.png" alt="">
+    <img src="https://i.ibb.co/rK6LTqM3/Faye.png" alt="">
+    <img src="https://i.ibb.co/MytCzjdg/Aveline.png" alt="">
   </div>
+
   <p class="portrait-text">The McAlpine Sisters</p>
-  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="Branch Divider">
+  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="branch">
+
   <div class="video-section">
     <p class="subtitle">Trailer to Spinning Down the Fox Hole</p>
     <video controls>
-      <source src="https://res.cloudinary.com/dyglwmnzh/video/upload/v1760485400/trailer_li4jpb.mp4" type="video/mp4">
+      <source src="https://res.cloudinary.com/dyglwmnzh/video/upload/v1760629528/lv_0_20251016163839_ml0ygv.mp4" type="video/mp4">
     </video>
   </div>
-  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="Branch Divider">
+
+  <!-- QUOTE CAROUSEL (restored and fixed) -->
+  <div class="quote-carousel" aria-live="polite">
+    <div class="quotes-container">
+      <div class="quote active">
+        <p class="quote-text">“The past will always be the past. But it doesn’t stop haunting me.”</p>
+        <p class="quote-author">– <em>Spinning Down the Fox Hole</em></p>
+      </div>
+
+      <div class="quote">
+        <p class="quote-text">“Before I had time to think, I had already decided. I dropped my phone into my bag, slipped off my shoes, and jumped.”</p>
+        <p class="quote-author">– <em>Spinning Down the Fox Hole</em></p>
+      </div>
+
+      <div class="quote">
+        <p class="quote-text">“Even in beauty, there’s loneliness—the kind that clings, even when the world feels endless.”</p>
+        <p class="quote-author">– <em>Spinning Down the Fox Hole</em></p>
+      </div>
+
+      <div class="quote">
+        <p class="quote-text">“He laughed into my hair, and for a moment the world was quiet again, small enough to fit inside the space between us.”</p>
+        <p class="quote-author">– <em>Spinning Down the Fox Hole</em></p>
+      </div>
+
+      <div class="quote">
+        <p class="quote-text">“It didn’t take long to find a small church perched on a hill… For a moment, we were together but content apart.”</p>
+        <p class="quote-author">– <em>Spinning Down the Fox Hole</em></p>
+      </div>
+
+      <div class="quote">
+        <p class="quote-text">“I dreamt I was the white fox. Running through the woods, searching for a place to hide… Even in my dream, I knew it wasn’t just the fox being hunted. It was me.”</p>
+        <p class="quote-author">– <em>Spinning Down the Fox Hole</em></p>
+      </div>
+    </div>
+    <button class="prev" aria-label="Previous quote">&#10094;</button>
+    <button class="next" aria-label="Next quote">&#10095;</button>
+  </div>
+
+  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="branch">
 </div>
 
-<!-- ===== RIGHT PAGE ===== -->
+<!-- RIGHT PAGE -->
 <div class="right-page">
-  <img class="landing-fox" src="https://i.ibb.co/p6Lt7nNd/e2eb6366-b194-476b-a714-99a2449d34ba.png" alt="Landing Fox">
-  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="Branch Divider">
+  <img class="landing-fox" src="https://i.ibb.co/p6Lt7nNd/e2eb6366-b194-476b-a714-99a2449d34ba.png" alt="fox">
+  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="branch">
   <img class="small-portrait" src="https://i.ibb.co/FbYhc8mb/file-00000000b58c6230b25d8049ad95a434.png" alt="Rens Cabin">
+  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="branch">
   <div class="left-content">
     <h2>Rens Cabin</h2>
     <h3>Inside Your Limited Edition</h3>
@@ -355,20 +174,128 @@ body {
       <li>Additional content</li>
     </ul>
   </div>
-  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="Branch Divider">
+  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="branch">
+  <p>Limited 1st Edition - Signed by Author</p>
+  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="branch">
   <div class="signature">
     <p>Author's Signature:</p>
-    <img src="https://i.ibb.co/6ckXfMFy/sketch1760478880761.png" alt="Author Signature">
+    <img src="https://i.ibb.co/6ckXfMFy/sketch1760478880761.png" id="authorSignature" alt="signature">
+  </div>
+  <img src="https://i.ibb.co/X1vH1NJ/file-0000000096a061f7925ff671c4d35516.png" class="branch-divider" alt="branch">
+</div>
+
+<!-- FOOTER -->
+<div class="fade-in-footer">&copy; 2025 Spinning Down the Fox Hole</div>
+
+<!-- POPUP -->
+<div class="signature-popup" id="signaturePopup" aria-hidden="true">
+  <div class="signature-popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <button class="close-popup" id="closePopup" aria-label="Close popup">&times;</button>
+    <p class="popup-top-text" id="popupTitle">Thank You for Exploring The Limited Edition Experience!</p>
+    <img src="https://i.ibb.co/6ckXfMFy/sketch1760478880761.png" alt="Author Signature Large">
+    <p class="popup-bottom-text">This signature is authentic and part of your exclusive set. &copy; 2025</p>
   </div>
 </div>
 
-<div class="fade-in-footer">&copy; 2025 Spinning Down the Fox Hole</div>
-
 <script>
-setTimeout(() => {
-  document.body.style.overflowY = "auto";
-}, 10200);
-</script>
+/* Make interactive code run after DOM ready */
+document.addEventListener('DOMContentLoaded', function() {
+  /* Overlay hide (keeps original timing) */
+  setTimeout(()=>{
+    const overlay = document.getElementById('entry-overlay');
+    if (overlay) overlay.style.display = 'none';
+    document.body.style.overflowY = 'auto';
+  }, 10200);
 
+  /* ===== Signature Popup ===== */
+  const sig = document.getElementById('authorSignature');
+  const popup = document.getElementById('signaturePopup');
+  const closeBtn = document.getElementById('closePopup');
+
+  function openPopup() {
+    if (!popup) return;
+    popup.classList.add('show');
+    popup.classList.remove('hide');
+    popup.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lock-scroll'); // prevent background scroll
+    // focus the close button for accessibility
+    if (closeBtn) closeBtn.focus();
+  }
+  function closePopup() {
+    if (!popup) return;
+    popup.classList.add('hide');
+    popup.setAttribute('aria-hidden', 'true');
+    // allow transition to finish before removing show
+    setTimeout(()=> {
+      popup.classList.remove('show');
+      document.body.classList.remove('lock-scroll');
+    }, 350);
+  }
+
+  if (sig && popup && closeBtn) {
+    sig.addEventListener('click', openPopup);
+    closeBtn.addEventListener('click', closePopup);
+    // close when clicking outside content area
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) closePopup();
+    });
+    // close with Esc key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && popup.classList.contains('show')) closePopup();
+    });
+  }
+
+  /* ===== Quote Carousel Logic ===== */
+  (function() {
+    const quotes = Array.from(document.querySelectorAll('.quote'));
+    const prevBtn = document.querySelector('.quote-carousel .prev');
+    const nextBtn = document.querySelector('.quote-carousel .next');
+    if (!quotes.length) return;
+
+    let index = 0;
+    let intervalId = null;
+    const intervalMs = 4000;
+
+    function showQuote(i) {
+      quotes.forEach((q, idx) => q.classList.toggle('active', idx === i));
+    }
+
+    function nextQuote() {
+      index = (index + 1) % quotes.length;
+      showQuote(index);
+    }
+    function prevQuote() {
+      index = (index - 1 + quotes.length) % quotes.length;
+      showQuote(index);
+    }
+
+    function startInterval() {
+      stopInterval();
+      intervalId = setInterval(nextQuote, intervalMs);
+    }
+    function stopInterval() {
+      if (intervalId) { clearInterval(intervalId); intervalId = null; }
+    }
+    function resetInterval() {
+      startInterval();
+    }
+
+    // wire buttons
+    if (nextBtn) nextBtn.addEventListener('click', () => { nextQuote(); resetInterval(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { prevQuote(); resetInterval(); });
+
+    // initial show & start
+    showQuote(index);
+    startInterval();
+
+    // Pause on hover for better UX (optional)
+    const carousel = document.querySelector('.quote-carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stopInterval);
+      carousel.addEventListener('mouseleave', startInterval);
+    }
+  })();
+});
+</script>
 </body>
-  </html>
+</html>
